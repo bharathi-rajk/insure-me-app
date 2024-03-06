@@ -1,0 +1,17 @@
+---
+- name: Configuring the test server
+  hosts: test-servers
+  become: yes
+
+  tasks:
+    - name: Update the repository
+      command: apt update
+
+    - name: Install the Docker
+      command: apt install -y docker.io
+
+    - name: Start docker service
+      command: systemctl start docker
+
+    - name: deploy insure-me app
+      command: docker run -itd -p 8085:8081 rajbharathi/insure-me-app:1.0  
